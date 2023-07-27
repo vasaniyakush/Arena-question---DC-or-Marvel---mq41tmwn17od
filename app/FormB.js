@@ -5,7 +5,11 @@ function FormB({ onSubmit, age }) {
 
     // const [dcShows, setDcShows] = useState("");
     const handleSubmit = (event) => {
-        onSubmit({ formType: "A", age, Shows });
+        if(Shows === "") {
+            event.preventDefault();
+            return;
+        }
+        onSubmit({ formType: "B", age, Shows });
     };
 
 
