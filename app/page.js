@@ -8,6 +8,24 @@ const App = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [age, setAge] = useState("");
+  const handleSelectStep1Change = (e) => {
+    console.log
+    if(age === "") {
+      console.log("Please enter age")
+      return;
+    }
+    else{
+
+      setStep(parseInt(e.target.value));
+    }
+  };
+  const onSubmit = (data) => {
+    console.log("data", data)
+    setFormData(data);
+    setStep(4);
+  };
+
+
 
   return (
     <div>
@@ -17,12 +35,12 @@ const App = () => {
           <h1>Step 1: Select Form Type and Enter Age</h1>
           <label>
             Enter your age:
-            <input value={age} />
+            <input type="number" value={age} onChange={(e) =>setAge(e.target.value)} />
           </label>
           <br />
           <label>
             Select Form Type:
-            <select onChange={(e) => setStep(parseInt(e.target.value))}>
+            <select onChange={(e) => handleSelectStep1Change(e)}>
               <option value={1}>--Select--</option>
               <option value={2}>Form A</option>
               <option value={3}>Form B</option>
@@ -35,12 +53,12 @@ const App = () => {
       )}
       {step === 2 && (
         <div>
-          <FormA age={age} />
+          <FormA age={age} onSubmit={onSubmit} />
         </div>
       )}
       {step === 3 && (
         <div>
-          <FormB age={age} />
+          <FormB age={age}  onSubmit={onSubmit} />
         </div>
       )}
       {(step === 2 || step === 3) && age ? (
@@ -49,8 +67,12 @@ const App = () => {
 
       {step === 4 && (
         <div>
-          <Summary />
-          <button id="start-over">Start Over</button>
+          <Summary formData={formData} />
+          <button id="start-over" onClick={()=>{
+            setAge("");
+            setStep(1);
+            setFormData({});
+          }}>Start Over</button>
         </div>
       )}
     </div>

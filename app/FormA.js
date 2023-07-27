@@ -2,14 +2,18 @@
 import { useState } from "react";
 
 function FormA({ onSubmit, age }) {
+    // const [formType, setFormType] = useState("");
+    // const [age, setAge] = useState("");
+    const [Shows, setDcShows] = useState("");
     const handleSubmit = (event) => {
+        onSubmit({ formType: "A", age, Shows });
     };
     return (
         <form id="dc" onSubmit={handleSubmit}>
             <h2>Form A</h2>
             <label>
                 Select DC Shows:
-                <select  >
+                <select onChange={(e)=>setDcShows(e.target.value)}  >
                     <option value="">--Select--</option>
                     <option value="The Flash">The Flash</option>
                     <option value="Arrow">Arrow</option>
@@ -23,7 +27,7 @@ function FormA({ onSubmit, age }) {
                 <input type="number" value={age} disabled />
             </label>
             <br />
-            <button id="submit-dc" type="submit">Submit</button>
+            <button id="submit-dc" type="submit" >Submit</button>
 
         </form>
     );
